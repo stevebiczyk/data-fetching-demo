@@ -1,3 +1,4 @@
+import { Submit } from "@/components/submit";
 import { addProduct } from "@/prisma-db";
 import { redirect } from "next/navigation";
 
@@ -40,7 +41,7 @@ export default function AddProductPage() {
   return (
     <form action={createProduct} className="p-4 space-y-4 max-w-96">
       <div>
-        <label className="text-white">
+        <label className="text-black">
           Title
           <input
             type="text"
@@ -53,7 +54,7 @@ export default function AddProductPage() {
         )}
       </div>
       <div>
-        <label className="text-white">
+        <label className="text-black">
           Price
           <input
             type="number"
@@ -66,7 +67,7 @@ export default function AddProductPage() {
         )}
       </div>
       <div>
-        <label className="text-white">
+        <label className="text-black">
           Description
           <textarea
             className="block w-full p-2 text-black border rounded"
@@ -77,12 +78,13 @@ export default function AddProductPage() {
           <p className="text-red-500">{state.errors.description}</p>
         )}
       </div>
-      <button
+      {/* <button
         type="submit"
         className="block w-full p-2 text-white bg-blue-500 rounded disabled:bg-gray-500"
       >
         Add product
-      </button>
+      </button> */}
+      <Submit />
     </form>
   );
 }
