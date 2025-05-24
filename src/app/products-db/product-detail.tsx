@@ -4,12 +4,14 @@ import { removeProduct } from "@/actions/products";
 import { getProducts } from "@/prisma-db";
 import { useOptimistic } from "react";
 import Link from "next/link";
+import Form from "next/form";
+// This component is used to display product details and handle product removal
 
 export type Product = {
   id: number;
   title: string;
   price: number;
-  description: string;
+  description: string | null;
 };
 
 export const ProductDetail = ({ products }: { products: Product[] }) => {
@@ -39,14 +41,14 @@ export const ProductDetail = ({ products }: { products: Product[] }) => {
           </h2>
           <p className="text-gray-600">{product.description}</p>
           <p className="text-lg font-medium">${product.price}</p>
-          <form action={removeProductById.bind(null, product.id)}>
+          <Form action={removeProductById.bind(null, product.id)}>
             <button
               type="submit"
               className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-700"
             >
               Delete
             </button>
-          </form>
+          </Form>
         </li>
       ))}
     </ul>
