@@ -1,3 +1,4 @@
+import { removeProduct } from "@/actions/products";
 import { getProducts } from "@/prisma-db";
 import Link from "next/link";
 
@@ -9,7 +10,10 @@ export type Product = {
 };
 
 export default async function ProductsDBPage() {
-  const products: Product[] = await getProducts();
+  const products: Product[] = (await getProducts()).map((product) => ({
+    ...product,
+    description: product.description ?? "",
+  }));
   return (
     <ul className="space-y-4 p-4">
       {products.map((product) => (
@@ -22,6 +26,14 @@ export default async function ProductsDBPage() {
           </h2>
           <p className="text-gray-600">{product.description}</p>
           <p className="text-lg font-medium">${product.price}</p>
+          <form action={removeProduct.bind(null, product.id)} method="POST">
+            <button
+              type="submit"
+              className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </form>
         </li>
       ))}
     </ul>
